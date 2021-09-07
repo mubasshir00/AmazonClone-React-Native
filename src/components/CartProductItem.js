@@ -1,20 +1,19 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View ,Image } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Price from './Price'
+import QuantitySelector from './QuantitySelector'
 
-
-const ProductItem = ({item}) => {
+const CartProductItem = ({option,quantity,item}) => {
     const {id,title,image,avgRating,ratings,price,oldPrice} = item
     return (
             <View style={styles.container}>
                 <Image style={styles.imageStyle} source={{uri:image}}/>
-
+                
                 <View style={styles.rightContainer}>
                     <Text style={styles.title}>{title}</Text>
                     <View style={styles.ratingContainer}>
                     <View style={styles.star}>
-                      
                         {
                             [0,0,0,0,0].map((el,i)=>(
                                   <FontAwesome 
@@ -31,24 +30,20 @@ const ProductItem = ({item}) => {
                             {ratings}
                         </Text>
                     </View>
-                    {/* <View style={styles.priceContainer}>
-                        <Text style={styles.price}>
-                        from : ${price}
-                    </Text>
-                    {
-                        oldPrice && <Text style={styles.oldPrice}>${oldPrice}</Text>
-                    }
-                    </View> */}
-                    {/* <Price price={price} oldPrice={oldPrice ? oldPrice : ''} /> */}
-                </View>
+                    <Price price={price} oldPrice={oldPrice}/>
+                    <View>
+                        <Text>{option}</Text>
+                    </View>
+                  <QuantitySelector/>
+            </View>
         </View>
     )
 }
 
-export default ProductItem
+export default CartProductItem
 
 const styles = StyleSheet.create({
-    container:{
+      container:{
         flexDirection:'row',
         justifyContent:'space-between',
         padding:6,
@@ -59,11 +54,12 @@ const styles = StyleSheet.create({
     },
     imageStyle:{
         flex:2,
-        height:130,
+        height:150,
         resizeMode:'cover',
     },
     rightContainer:{
-        padding:10,
+        // padding:10,
+        paddingLeft:10,
         flex:3,
     },
     title:{
@@ -77,5 +73,4 @@ const styles = StyleSheet.create({
     ratingContainer:{
         flexDirection:'row'
     },
-   
 })
